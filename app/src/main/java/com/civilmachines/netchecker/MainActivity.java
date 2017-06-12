@@ -1,27 +1,26 @@
 package com.civilmachines.netchecker;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.civilmachines.networkchecker.NCActivity;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends NCActivity {
 
 
-    TextView textView1, textView2;
-    RelativeLayout relativeLayout;
+    TextView textView1;
+    RelativeLayout relativeLayout, relativeLayout2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        relativeLayout = (RelativeLayout) findViewById(R.id.rl);
+        relativeLayout2 = (RelativeLayout) findViewById(R.id.rl2);
         textView1 = (TextView) findViewById(R.id.conn);
-        textView2 = (TextView) findViewById(R.id.notconn);
-        NCActivity ncActivity = new NCActivity();
-        ncActivity.setRelative(relativeLayout);
+        setRelative(relativeLayout, relativeLayout2);
 
 
 
