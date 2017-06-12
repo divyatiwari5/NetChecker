@@ -15,6 +15,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -34,6 +35,11 @@ public class NCActivity extends AppCompatActivity{
 
     }
 
+    /**
+     * This is used to set Realtive layout and buttons that will be affected from net status change
+     * @param param_bar is RelativeLayout referring to the layout that will be shown when net is off
+     * @param param_buttons are buttons that will only be enabled if net is working
+     */
     public void setRelative(RelativeLayout param_bar, ArrayList<Button> param_buttons){
         buttons = param_buttons;
         NoNetBar = param_bar;
@@ -57,6 +63,7 @@ public class NCActivity extends AppCompatActivity{
     }
 
     public void setRelative(RelativeLayout param_bar){
+
         NoNetBar = param_bar;
         //Toast.makeText(SampleActivity.this, "NoNetBar has been setup", Toast.LENGTH_SHORT).show();
         setReceiver();
@@ -72,7 +79,7 @@ public class NCActivity extends AppCompatActivity{
                     boolean isDisConnected = intent.getBooleanExtra(ConnectivityManager.EXTRA_NO_CONNECTIVITY, false);
 
                     if (isDisConnected) {
-                       //Toast.makeText(SampleActivity.this, "Internet DisConnected!", Toast.LENGTH_SHORT).show();
+                       Toast.makeText(NCActivity.this, "Internet DisConnected!", Toast.LENGTH_SHORT).show();
                         NoNetBar.setVisibility(View.VISIBLE);
                         if(buttons!=null){
                             for(int i=0; i<buttons.size(); i++){
@@ -88,7 +95,7 @@ public class NCActivity extends AppCompatActivity{
                                 buttons.get(i).setEnabled(true);
                             }
                         }
-                      //  Toast.makeText(SampleActivity.this, "Internet Connected!", Toast.LENGTH_SHORT).show();
+                       Toast.makeText(NCActivity.this, "Internet Connected!", Toast.LENGTH_SHORT).show();
                         NoNetBar.setVisibility(View.INVISIBLE);
                         if(netConnected != null)
                             netConnected.run();

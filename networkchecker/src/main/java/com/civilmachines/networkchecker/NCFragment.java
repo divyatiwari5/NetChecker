@@ -53,7 +53,8 @@ public class NCFragment extends Fragment {
                     }
 
                 }
-            };
+
+          };
         }
     }
 
