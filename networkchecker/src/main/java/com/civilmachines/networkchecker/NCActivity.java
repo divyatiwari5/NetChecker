@@ -8,7 +8,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -24,7 +23,7 @@ import java.util.ArrayList;
 public class NCActivity extends AppCompatActivity{
 
     BroadcastReceiver breceiver;
-    RelativeLayout NoNetBar, NoNetBar2;
+    RelativeLayout NoNetBar;
     ArrayList<Button> buttons = null;
     String KEY_BROADCAST_INTENTFILTER = "android.net.conn.CONNECTIVITY_CHANGE";
     private Runnable netDisconnected;
@@ -45,7 +44,7 @@ public class NCActivity extends AppCompatActivity{
         buttons = param_buttons;
         NoNetBar = param_bar;
        // Toast.makeText(SampleActivity.this, "NoNetBar has been setup", Toast.LENGTH_SHORT).show();
-        isOnline();
+     setReceiver();
     }
 
     public void pdOnbackpressed(final ProgressDialog pd){
@@ -63,15 +62,14 @@ public class NCActivity extends AppCompatActivity{
         });
     }
 
-    public void setRelative(RelativeLayout param_bar, RelativeLayout param){
+    public void setRelative(RelativeLayout param_bar){
 
         NoNetBar = param_bar;
-        NoNetBar2 = param;
         //Toast.makeText(SampleActivity.this, "NoNetBar has been setup", Toast.LENGTH_SHORT).show();
-        isOnline();
+        setReceiver();
     }
 
-    public boolean isOnline() {
+   /* public boolean isOnline() {
         ConnectivityManager conMgr = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = conMgr.getActiveNetworkInfo();
 
@@ -86,7 +84,8 @@ public class NCActivity extends AppCompatActivity{
         Toast.makeText(getApplicationContext(), "Connected", Toast.LENGTH_LONG).show();
         return true;
     }
-  /*  public void setReceiver(){
+    */
+  public void setReceiver(){
         if(NoNetBar != null) {
            // NoNetBar.setVisibility(View.INVISIBLE);
 
@@ -121,10 +120,9 @@ public class NCActivity extends AppCompatActivity{
 
                 }
             };
-          //  Toast.makeText(SampleActivity.this, "Broadcast Initialized", Toast.LENGTH_SHORT).show();
         }
     }
-*/
+
     public void intent(final Class<? extends Activity>  activity, String Key, int data){
         Intent intent = new Intent(this, activity);
         if (Key!=null)
@@ -141,10 +139,7 @@ public class NCActivity extends AppCompatActivity{
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
-       // Toast.makeText(SampleActivity.this, "App is Created", Toast.LENGTH_SHORT).show();
-
     }
 
     @Override
@@ -155,27 +150,23 @@ public class NCActivity extends AppCompatActivity{
     @Override
     protected void onResume() {
         if(breceiver != null) {
+            // Register Broadcast Receiver
             registerReceiver(breceiver, new IntentFilter(KEY_BROADCAST_INTENTFILTER));
-          //  Toast.makeText(SampleActivity.this, "Broadcast Registered", Toast.LENGTH_SHORT).show();
         }
         super.onResume();
-//        Toast.makeText(SampleActivity.this, "App has Resumed", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     protected void onPause() {
         if(breceiver != null) {
+            // Unregister the Broadcast Receiver
             unregisterReceiver(breceiver);
-         //   Toast.makeText(SampleActivity.this, "Broadcast UnRegistered", Toast.LENGTH_SHORT).show();
         }
-
-        //Toast.makeText(SampleActivity.this, "App has Paused", Toast.LENGTH_SHORT).show();
         super.onPause();
     }
 
     @Override
     protected void onStop() {
-        //Toast.makeText(SampleActivity.this, "App has stopped", Toast.LENGTH_SHORT).show();
         super.onStop();
     }
 
