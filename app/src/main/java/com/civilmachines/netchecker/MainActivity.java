@@ -11,6 +11,7 @@ public class MainActivity extends NCActivity {
 
     TextView textView1;
     RelativeLayout relativeLayout, relativeLayout2;
+    private Runnable netconn, netdisconn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,7 +21,7 @@ public class MainActivity extends NCActivity {
         relativeLayout = (RelativeLayout) findViewById(R.id.rl);
         relativeLayout2 = (RelativeLayout) findViewById(R.id.rl2);
         textView1 = (TextView) findViewById(R.id.conn);
-        setRelative(relativeLayout, relativeLayout2);
+        setRelative(relativeLayout);
 
 
 
